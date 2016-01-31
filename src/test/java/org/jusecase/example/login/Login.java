@@ -25,10 +25,6 @@ public class Login implements Usecase<Login.Request, Login.Response> {
     }
 
     private void validateRequest(Request request) {
-        if (request == null) {
-            throw new RuntimeException("Request must not be null");
-        }
-
         if (request.name == null) {
             throw new RuntimeException("Login name must not be null");
         }

@@ -8,6 +8,10 @@ public abstract class AbstractUsecaseExecutor implements UsecaseExecutor {
     private UsecaseRequestResolver requestResolver = new UsecaseRequestResolver();
 
     public <Request, Response> Response execute(Request request) {
+        if (request == null) {
+            throw new UsecaseExecutorException("Request must not be null.");
+        }
+
         Usecase<Request, Response> usecase = getUsecase(request.getClass());
         return usecase.execute(request);
     }

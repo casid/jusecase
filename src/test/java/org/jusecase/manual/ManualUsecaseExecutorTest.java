@@ -7,7 +7,7 @@ import org.jusecase.UsecaseExecutorException;
 import org.jusecase.example.trivial.AppendCharacters;
 import org.jusecase.example.trivial.CalculateSum;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class ManualUsecaseExecutorTest {
     private ManualUsecaseExecutor executor;
@@ -16,6 +16,17 @@ public class ManualUsecaseExecutorTest {
     @Before
     public void setUp() throws Exception {
         executor = new ManualUsecaseExecutor();
+    }
+
+    @Test
+    public void nullRequest() {
+        try {
+            executor.execute(null);
+        } catch (UsecaseExecutorException e) {
+            exception = e;
+        }
+
+        thenExceptionMessageIs("Request must not be null.");
     }
 
     @Test
@@ -43,7 +54,7 @@ public class ManualUsecaseExecutorTest {
             exception = e;
         }
 
-        assertEquals("Request 'org.jusecase.example.trivial.CalculateSum$Request' is already handled by a usecase.", exception.getMessage());
+        thenExceptionMessageIs("Request 'org.jusecase.example.trivial.CalculateSum$Request' is already handled by a usecase.");
     }
 
     @Test
@@ -68,7 +79,7 @@ public class ManualUsecaseExecutorTest {
             exception = e;
         }
 
-        assertEquals("Could not resolve usecase request type for class 'org.jusecase.Usecase'", exception.getMessage());
+        thenExceptionMessageIs("Could not resolve usecase request type for class 'org.jusecase.Usecase'");
     }
 
     private void thenAppendCharactersCanBeExecuted() {
@@ -79,5 +90,10 @@ public class ManualUsecaseExecutorTest {
     private void thenCalculateSumCanBeExecuted() {
         CalculateSum.Request request = new CalculateSum.Request(2, 3);
         assertEquals(5, executor.execute(request));
+    }
+
+    private void thenExceptionMessageIs(String expected) {
+        assertNotNull("Expected exception with message '" + expected + "', but nothing was thrown.", exception);
+        assertEquals(expected, exception.getMessage());
     }
 }

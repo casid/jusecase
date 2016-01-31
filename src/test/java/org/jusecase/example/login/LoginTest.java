@@ -17,13 +17,6 @@ public class LoginTest extends UsecaseTest<Request, Response> {
     }
 
     @Test
-    public void nullRequest() {
-        givenRequest(null);
-        whenRequestIsExecuted();
-        thenErrorMessageIs("Request must not be null");
-    }
-
-    @Test
     public void nullLoginName() {
         givenRequest(a(request().withName(null)));
         whenRequestIsExecuted();
