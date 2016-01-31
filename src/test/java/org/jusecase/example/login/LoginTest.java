@@ -6,14 +6,18 @@ import org.jusecase.builder.Builder;
 import org.jusecase.UsecaseTest;
 import org.jusecase.example.login.Login.Request;
 import org.jusecase.example.login.Login.Response;
+import org.jusecase.example.login.plugins.AuthPluginCoach;
 
 import static org.junit.Assert.assertEquals;
 import static org.jusecase.builder.BuilderFactory.a;
 
 public class LoginTest extends UsecaseTest<Request, Response> {
+    private AuthPluginCoach authPlugin;
+
     @Before
     public void setUp() {
-        usecase = new Login();
+        authPlugin = new AuthPluginCoach();
+        usecase = new Login(authPlugin);
     }
 
     @Test
@@ -34,7 +38,40 @@ public class LoginTest extends UsecaseTest<Request, Response> {
     public void notAuthorized() {
         givenRequest(a(request()));
         whenRequestIsExecuted();
-        thenErrorMessageIs("You are not authorized to enter");
+        thenUserIsNotAuthorized();
+    }
+
+    @Test
+    public void wrongName() {
+        authPlugin.givenUserIsAuthorized("admin@company.com", "admin");
+        givenRequest(a(request()
+                .withName("user@company.com")
+                .withPassword("admin")));
+
+        whenRequestIsExecuted();
+        thenUserIsNotAuthorized();
+    }
+
+    @Test
+    public void wrongPassword() {
+        authPlugin.givenUserIsAuthorized("admin@company.com", "admin");
+        givenRequest(a(request()
+                .withName("admin@company.com")
+                .withPassword("?")));
+
+        whenRequestIsExecuted();
+        thenUserIsNotAuthorized();
+    }
+
+    @Test
+    public void authorized() {
+        authPlugin.givenUserIsAuthorized("admin@company.com", "admin");
+        givenRequest(a(request()
+            .withName("admin@company.com")
+            .withPassword("admin")));
+
+        whenRequestIsExecuted();
+        thenWelcomeMessageIs("Welcome, admin@company.com");
     }
 
     @Test
@@ -42,6 +79,10 @@ public class LoginTest extends UsecaseTest<Request, Response> {
         givenRequest(a(request().withPassword("Chuck Norris")));
         whenRequestIsExecuted();
         thenWelcomeMessageIs("Your password is too strong to prevent you from entering");
+    }
+
+    private void thenUserIsNotAuthorized() {
+        thenErrorMessageIs("You are not authorized to enter");
     }
 
     private void thenWelcomeMessageIs(String expected) {
@@ -57,7 +98,7 @@ public class LoginTest extends UsecaseTest<Request, Response> {
 
         public RequestBuilder golden() {
             return this
-                    .withName("andy@mazebert.com")
+                    .withName("user@company.com")
                     .withPassword("TopSecret");
         }
 
