@@ -6,11 +6,6 @@ import org.jusecase.Usecase;
 
 public class ManualUsecaseExecutor extends AbstractUsecaseExecutor {
 
-    public <Request, Response> Response execute(Request request) {
-        Usecase<Request, Response> usecase = getUsecase(request);
-        return usecase.execute(request);
-    }
-
     public void addUsecase(Usecase<?, ?> usecase) {
         addUsecase(getRequestClass(usecase.getClass()), usecase);
     }
