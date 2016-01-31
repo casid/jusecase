@@ -51,6 +51,10 @@ public Response execute(Request request) {
 
 Of course you can throw a custom exception that better suits the project you are actually working with.
 
+I recommend to have a look at the entire login example:
+- [Login.java](https://github.com/casid/jusecase/blob/master/src/test/java/org/jusecase/example/login/Login.java)
+- [LoginTest.java](https://github.com/casid/jusecase/blob/master/src/test/java/org/jusecase/example/login/LoginTest.java)
+
 ## Built in support for dependency injection
 Dependency injection details are completely hidden to your application.
 
