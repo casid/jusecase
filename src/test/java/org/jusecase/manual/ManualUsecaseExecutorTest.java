@@ -2,6 +2,8 @@ package org.jusecase.manual;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.jusecase.Usecase;
+import org.jusecase.UsecaseExecutorException;
 import org.jusecase.example.trivial.AppendCharacters;
 import org.jusecase.example.trivial.CalculateSum;
 
@@ -9,6 +11,7 @@ import static junit.framework.Assert.assertEquals;
 
 public class ManualUsecaseExecutorTest {
     private ManualUsecaseExecutor executor;
+    private UsecaseExecutorException exception;
 
     @Before
     public void setUp() throws Exception {
@@ -28,6 +31,31 @@ public class ManualUsecaseExecutorTest {
 
         thenAppendCharactersUsecaseCanBeExecuted();
         thenCalculateSumUsecaseCanBeExecuted();
+    }
+
+    @Test
+    public void addOneUsecaseFactory() {
+        executor.addUsecase(new Factory<AppendCharacters>() {
+            public AppendCharacters create() {
+                return new AppendCharacters();
+            }
+        });
+        thenAppendCharactersUsecaseCanBeExecuted();
+    }
+
+    @Test
+    public void addOneUsecaseFactoryWithoutRequestInformation() {
+        try {
+            executor.addUsecase(new Factory<Usecase>() {
+                public Usecase create() {
+                    return new AppendCharacters();
+                }
+            });
+        } catch (UsecaseExecutorException e) {
+            exception = e;
+        }
+
+        assertEquals("Could not resolve usecase request type for class 'org.jusecase.Usecase'", exception.getMessage());
     }
 
     private void thenAppendCharactersUsecaseCanBeExecuted() {
