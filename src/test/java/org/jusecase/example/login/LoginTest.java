@@ -1,11 +1,11 @@
-package org.jusecase.example;
+package org.jusecase.example.login;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.jusecase.builder.Builder;
 import org.jusecase.UsecaseTest;
-import org.jusecase.example.Login.Request;
-import org.jusecase.example.Login.Response;
+import org.jusecase.example.login.Login.Request;
+import org.jusecase.example.login.Login.Response;
 
 import static org.junit.Assert.assertEquals;
 import static org.jusecase.builder.BuilderFactory.a;

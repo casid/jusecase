@@ -1,4 +1,4 @@
-package org.jusecase.example;
+package org.jusecase.example.login;
 
 import org.jusecase.Usecase;
 
