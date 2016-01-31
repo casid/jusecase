@@ -23,6 +23,9 @@ public abstract class AbstractUsecaseExecutor implements UsecaseExecutor {
     @SuppressWarnings("unchecked")
     public <Request, Response> Usecase<Request, Response> getUsecase(Class<?> requestClass) {
         Object usecase = usecases.get(requestClass);
+        if (usecase == null) {
+            throw new UsecaseExecutorException("No usecase was found to handle request '" + requestClass.getName() + "'.");
+        }
         return (Usecase<Request, Response>)resolveUsecase(usecase);
     }
 

@@ -30,6 +30,17 @@ public class ManualUsecaseExecutorTest {
     }
 
     @Test
+    public void noUsecaseFound() {
+        try {
+            executor.execute(new AppendCharacters.Request('A', 1));
+        } catch (UsecaseExecutorException e) {
+            exception = e;
+        }
+
+        thenExceptionMessageIs("No usecase was found to handle request 'org.jusecase.example.trivial.AppendCharacters$Request'.");
+    }
+
+    @Test
     public void addOneUsecase() {
         executor.addUsecase(new AppendCharacters());
         thenAppendCharactersCanBeExecuted();
