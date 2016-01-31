@@ -1,4 +1,8 @@
-package org.jusecase;
+package org.jusecase.executors;
+
+import org.jusecase.Usecase;
+import org.jusecase.UsecaseExecutor;
+import org.jusecase.UsecaseExecutorException;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,7 +1,7 @@
-package org.jusecase.manual;
+package org.jusecase.executors.manual;
 
 import net.jodah.typetools.TypeResolver;
-import org.jusecase.AbstractUsecaseExecutor;
+import org.jusecase.executors.AbstractUsecaseExecutor;
 import org.jusecase.Usecase;
 
 public class ManualUsecaseExecutor extends AbstractUsecaseExecutor {

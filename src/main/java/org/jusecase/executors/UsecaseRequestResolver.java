@@ -1,6 +1,8 @@
-package org.jusecase;
+package org.jusecase.executors;
 
 import net.jodah.typetools.TypeResolver;
+import org.jusecase.Usecase;
+import org.jusecase.UsecaseExecutorException;
 
 public class UsecaseRequestResolver {
     public Class<?> getRequestClass(Class<?> usecaseClass) {

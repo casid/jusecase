@@ -1,5 +1,7 @@
 package org.jusecase;
 
+import org.jusecase.executors.UsecaseRequestResolver;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 

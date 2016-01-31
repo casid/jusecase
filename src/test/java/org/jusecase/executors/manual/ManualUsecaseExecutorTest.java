@@ -1,4 +1,4 @@
-package org.jusecase.manual;
+package org.jusecase.executors.manual;
 
 import org.junit.Before;
 import org.junit.Test;
