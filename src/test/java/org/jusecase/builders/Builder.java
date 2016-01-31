@@ -1,4 +1,4 @@
-package org.jusecase.builder;
+package org.jusecase.builders;
 
 public interface Builder<T> {
     T build();
