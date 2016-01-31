@@ -21,7 +21,7 @@ public class ManualUsecaseExecutorTest {
     @Test
     public void addOneUsecase() {
         executor.addUsecase(new AppendCharacters());
-        thenAppendCharactersUsecaseCanBeExecuted();
+        thenAppendCharactersCanBeExecuted();
     }
 
     @Test
@@ -29,8 +29,8 @@ public class ManualUsecaseExecutorTest {
         executor.addUsecase(new CalculateSum());
         executor.addUsecase(new AppendCharacters());
 
-        thenAppendCharactersUsecaseCanBeExecuted();
-        thenCalculateSumUsecaseCanBeExecuted();
+        thenAppendCharactersCanBeExecuted();
+        thenCalculateSumCanBeExecuted();
     }
 
     @Test
@@ -40,7 +40,7 @@ public class ManualUsecaseExecutorTest {
                 return new AppendCharacters();
             }
         });
-        thenAppendCharactersUsecaseCanBeExecuted();
+        thenAppendCharactersCanBeExecuted();
     }
 
     @Test
@@ -58,12 +58,12 @@ public class ManualUsecaseExecutorTest {
         assertEquals("Could not resolve usecase request type for class 'org.jusecase.Usecase'", exception.getMessage());
     }
 
-    private void thenAppendCharactersUsecaseCanBeExecuted() {
+    private void thenAppendCharactersCanBeExecuted() {
         AppendCharacters.Request request = new AppendCharacters.Request('A', 5);
         assertEquals("AAAAA", executor.execute(request));
     }
 
-    private void thenCalculateSumUsecaseCanBeExecuted() {
+    private void thenCalculateSumCanBeExecuted() {
         CalculateSum.Request request = new CalculateSum.Request(2, 3);
         assertEquals(5, executor.execute(request));
     }
