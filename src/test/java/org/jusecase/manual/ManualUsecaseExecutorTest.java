@@ -34,6 +34,19 @@ public class ManualUsecaseExecutorTest {
     }
 
     @Test
+    public void addUsecaseWithAlreadyExistingRequest() {
+        executor.addUsecase(new CalculateSum());
+
+        try {
+            executor.addUsecase(new CalculateSum());
+        } catch (UsecaseExecutorException e) {
+            exception = e;
+        }
+
+        assertEquals("Request 'org.jusecase.example.trivial.CalculateSum$Request' is already handled by a usecase.", exception.getMessage());
+    }
+
+    @Test
     public void addOneUsecaseFactory() {
         executor.addUsecase(new Factory<AppendCharacters>() {
             public AppendCharacters create() {

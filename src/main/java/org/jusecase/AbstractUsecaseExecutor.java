@@ -19,6 +19,9 @@ public abstract class AbstractUsecaseExecutor implements UsecaseExecutor {
     }
 
     protected void addUsecase(Class<?> requestClass, Object usecase) {
+        if (usecases.containsKey(requestClass)) {
+            throw new UsecaseExecutorException("Request '" + requestClass.getName() + "' is already handled by a usecase.");
+        }
         usecases.put(requestClass, usecase);
     }
 
