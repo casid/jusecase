@@ -132,6 +132,7 @@ public class Logic extends GuiceUsecaseExecutor {
     public static Logic instance = new Logic();
 
     public Logic() {
+        super(Guice.createInjector());
         addUsecase(Login.class);
     }
 }
