@@ -11,7 +11,7 @@
 
     <name>JUsecase</name>
     <description>Java framework for a usecase centric architecture as proposed by Uncle Bob and others. Supports Java 1.6+.</description>
-    <url>https://github.com/casid/jusecase</url>
+    <url>http://jusecase.org</url>
 
     <licenses>
         <license>
