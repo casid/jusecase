@@ -138,6 +138,6 @@ public class Logic extends GuiceUsecaseExecutor {
 }
 ```
 
-TODO add link to jusecase-guice repository.
+Note: JUsecase does not come with Guice support by default. To add guice support, follow the instructions on [jusecase-guice](https://github.com/casid/jusecase-guice). This should also be a good starting point if you would like to add support for other dependency injection frameworks.
 
-If you are unsure what method to use, start with manual injection. Switching to a dependency injection framework is a matter of minutes. And remember, no tests need to be changed and your tests will warn you instantly if the dependency injection framework fails to initialize a usecase!
+If you are unsure what dependency injection method to use, start with manual injection. Switching to a dependency injection framework will still be straight forward, as all dependencies will be managed at one central place. And remember, no tests need to be changed when you change the dependency injection method. And your tests will warn you instantly if the dependency injection framework fails to initialize a usecase that for whatsoever reason!
