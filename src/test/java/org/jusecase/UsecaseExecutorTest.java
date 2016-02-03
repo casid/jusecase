@@ -8,7 +8,7 @@ import static org.junit.Assert.assertNotNull;
 
 public abstract class UsecaseExecutorTest {
     protected AbstractUsecaseExecutor executor;
-    private UsecaseRequestResolver requestResolver = new UsecaseRequestResolver();
+    protected UsecaseRequestResolver requestResolver = new UsecaseRequestResolver();
 
     public void givenExecutor(AbstractUsecaseExecutor executor) {
         this.executor = executor;
