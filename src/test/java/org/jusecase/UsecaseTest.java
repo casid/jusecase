@@ -25,8 +25,16 @@ public abstract class UsecaseTest<Request, Response> {
         assertEquals(expected, response);
     }
 
+    protected void thenResponseIsNotNull() {
+        assertNotNull(response);
+    }
+
     protected void thenErrorIs(Throwable expected) {
         assertEquals(expected, error);
+    }
+
+    protected void thenErrorIs(Class<? extends Throwable> expected) {
+        assertEquals(expected, error.getClass());
     }
 
     protected void thenErrorMessageIs(String expected) {
