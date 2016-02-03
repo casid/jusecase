@@ -1,20 +1,9 @@
-<!--
-Howto
-- Copy content of this file to clipboard.
-- Open IntelliJ settings
-- Navigate to live templates
-- Paste from clipboard
--->
-
-<!-- Usecase -->
 <template name="jusecase" value="import org.jusecase.Usecase;&#10;&#10;public class $CLASS$ implements Usecase&lt;$CLASS$.Request, $CLASS$.Response&gt; {&#10;    public static class Request {&#10;&#10;    }&#10;&#10;    public static class Response {&#10;&#10;    }&#10;&#10;    public Response execute(Request request) {&#10;        // TODO write a failing unit test&#10;        return null;&#10;    }&#10;}" toReformat="false" toShortenFQNames="true">
     <variable name="CLASS" expression="fileNameWithoutExtension()" defaultValue="" alwaysStopAt="false" />
     <context>
         <option name="JAVA_CODE" value="true" />
     </context>
 </template>
-
-<!-- Usecase Test -->
 <template name="jusecasetest" value="import org.junit.Before;&#10;import org.junit.Test;&#10;import org.jusecase.UsecaseTest;&#10;import org.jusecase.builders.Builder;&#10;import $PACKAGE$.$USECASE$.Request;&#10;import $PACKAGE$.$USECASE$.Response;&#10;&#10;import static org.jusecase.builders.BuilderFactory.a;&#10;&#10;public class $TEST_CLASS$ extends UsecaseTest&lt;Request, Response&gt; {&#10;&#10;    @Before&#10;    public void setUp() {&#10;        usecase = new $USECASE$();&#10;    }&#10;&#10;    @Test&#10;    public void firstTest() {&#10;        givenRequest(a(request()));&#10;        whenRequestIsExecuted();&#10;        // TODO make this test red!&#10;    }&#10;&#10;    private RequestBuilder request() {&#10;        return new RequestBuilder().golden();&#10;    }&#10;&#10;    private static class RequestBuilder implements Builder&lt;Request&gt; {&#10;        private Request request = new Request();&#10;&#10;        public RequestBuilder golden() {&#10;            return this;&#10;        }&#10;&#10;        public Request build() {&#10;            return request;&#10;        }&#10;    }&#10;}" toReformat="false" toShortenFQNames="true">
 <variable name="PACKAGE" expression="currentPackage()" defaultValue="" alwaysStopAt="false" />
 <variable name="USECASE" expression="completeSmart()" defaultValue="" alwaysStopAt="true" />
@@ -23,4 +12,3 @@ Howto
     <option name="JAVA_CODE" value="true" />
 </context>
 </template>
-
