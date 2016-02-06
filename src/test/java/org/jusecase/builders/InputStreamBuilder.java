@@ -16,6 +16,11 @@ public class InputStreamBuilder implements Builder<InputStream> {
         return this;
     }
 
+    public InputStreamBuilder withTestResource(String resource) {
+        inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream(resource);
+        return this;
+    }
+
     public InputStream build() {
         return inputStream;
     }
