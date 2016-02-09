@@ -6,17 +6,16 @@ import org.jusecase.builders.Builder;
 import org.jusecase.UsecaseTest;
 import org.jusecase.example.login.Login.Request;
 import org.jusecase.example.login.Login.Response;
-import org.jusecase.example.login.plugins.AuthPluginCoach;
+import org.jusecase.example.login.plugins.AuthPluginMock;
 
 import static org.junit.Assert.assertEquals;
 import static org.jusecase.builders.BuilderFactory.a;
 
 public class LoginTest extends UsecaseTest<Request, Response> {
-    private AuthPluginCoach authPlugin;
+    private AuthPluginMock authPlugin = new AuthPluginMock();
 
     @Before
     public void setUp() {
-        authPlugin = new AuthPluginCoach();
         usecase = new Login(authPlugin);
     }
 
