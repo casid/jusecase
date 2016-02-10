@@ -10,12 +10,12 @@ JUsecase is available on maven central repository:
 <dependency>
     <groupId>org.jusecase</groupId>
     <artifactId>jusecase</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
 </dependency>
 <dependency>
     <groupId>org.jusecase</groupId>
     <artifactId>jusecase</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
     <type>test-jar</type>
     <scope>test</scope>
 </dependency>
@@ -88,7 +88,7 @@ public interface UsecaseExecutor {
 This means the main module (UI, REST, TimerBean, ...) fires a request at the UsecaseExecutor. Which class is exactly executing the request doesn't concern the main module. For example a REST call could come down to this:
 
 ```java
-@POST("login")
+@POST("/login")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public Login.Response login(Login.Request request) {
@@ -96,14 +96,13 @@ public Login.Response login(Login.Request request) {
 }
 ```
 
-And to be sure that the request can actually be handled, we add this unit test:
+And to be sure that the request can actually be executed by the business logic, we add this unit test:
 
 ```java
-public class LogicTest extends UsecaseExecutorTest {
-
+public class BusinessLogicTest extends UsecaseExecutorTest {
     @Test
     public void requestsCanBeExecuted() {
-        givenExecutor(Logic.instance);
+        givenExecutor(new BusinessLogic());
         
         thenUsecaseCanBeExecuted(Login.class);
         // ... in a real world application more usecases will follow here.
@@ -114,10 +113,8 @@ public class LogicTest extends UsecaseExecutorTest {
 This test will become green by implementing a simple Logic class.
 
 ```java
-public class Logic extends ManualUsecaseExecutor {
-    public static Logic instance = new Logic();
-
-    public Logic() {
+public class BusinessLogic extends ManualUsecaseExecutor {
+    public BusinessLogic() {
         addUsecase(new Login());
     }
 }
@@ -129,15 +126,22 @@ Note that the above class derives from ManualUsecaseExecutor. This means all dep
 Imagine an application with a lot of usecases. Yet easy to implement, a problem of the above solution is that all usecases are generated instantly. In a real world application every usecase would require lower level dependencies like entity gateways or external plugins. In case you want to achieve that a concrete usecase is only created, when it is actually used, the manual executor supports to add usecase factories:
 
 ```java
-public class Logic extends ManualUsecaseExecutor {
-    public static Logic instance = new Logic();
-
-    public Logic() {
+public class BusinessLogic extends ManualUsecaseExecutor {
+    public BusinessLogic() {
         addUsecase(new Factory<Login>() {
             public Login create() {
                 return new Login();
             }
         });
+    }
+}
+```
+
+Or in Java 8 lambda notation:
+```java
+public class BusinessLogic extends ManualUsecaseExecutor {
+    public BusinessLogic() {
+        addUsecase(() -> new Login());
     }
 }
 ```
@@ -162,4 +166,4 @@ Note: JUsecase does not come with Guice support by default. To add guice support
 
 Note: There currently is no golden way to use dependency injection. Both manual and automatic approaches have benefits and drawbacks. This is why JUsecase doesn't require you to make that decision at the beginning of your project.
 
-If you are unsure what dependency injection method to use, start with manual injection. The good news is: Switching to a dependency injection framework will still be very straight forward. Is is because all dependencies are managed at one central place. And remember, no tests need to be changed when you change the dependency injection method. Your unit tests will check that your usecases can be generated, no matter what.
+If you are unsure what dependency injection method to use, start with manual injection. The good news is: Switching to a dependency injection framework will still be very straight forward. This is because all dependencies are managed at one central place. And remember, no tests need to be changed when you change the dependency injection method. Your unit tests will check that your usecases can be generated, no matter what.
