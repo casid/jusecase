@@ -92,7 +92,7 @@ This means the main module (UI, REST, TimerBean, ...) fires a request at the Use
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public Login.Response login(Login.Request request) {
-    return Logic.instance.execute(request);
+    return businessLogic.execute(request);
 }
 ```
 
@@ -123,7 +123,7 @@ public class BusinessLogic extends ManualUsecaseExecutor {
 ### Manual dependency injection
 Note that the above class derives from ManualUsecaseExecutor. This means all dependency injection is done by hand.
 
-Imagine an application with a lot of usecases. Yet easy to implement, a problem of the above solution is that all usecases are generated instantly. In a real world application every usecase would require lower level dependencies like entity gateways or external plugins. In case you want to achieve that a concrete usecase is only created, when it is actually used, the manual executor supports to add usecase factories:
+Imagine an application with a lot of usecases. Yet easy to implement, a problem of the above solution is that all usecases are generated instantly. In a real world application every usecase would require lower level dependencies like entity gateways or external plugins. In case you want to achieve that a concrete usecase is only created when it is actually used, you can provide a factory instead:
 
 ```java
 public class BusinessLogic extends ManualUsecaseExecutor {
