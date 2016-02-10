@@ -16,15 +16,11 @@ public class ManualUsecaseExecutor extends AbstractUsecaseExecutor {
 
     @Override
     protected Object resolveUsecase(Object usecase) {
-        if (usecase instanceof Usecase) {
-            return usecase;
-        }
-
         if (usecase instanceof Factory) {
             return ((Factory)usecase).create();
         }
 
-        return null;
+        return usecase;
     }
 
     private Class<?> getRequestClassFromFactory(Class<?> factoryClass) {
