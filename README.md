@@ -149,13 +149,11 @@ public class BusinessLogic extends ManualUsecaseExecutor {
 Notice that absolutely nothing needs to be changed in your unit test when switching to usecase factories.
 
 ### Automatic dependency injection
-It is also possible to use a dependency injection framework with JUsecase. Have a look at the Logic class derived from GuiceUsecaseExecutor.
+It is also possible to use a dependency injection framework with JUsecase. Have a look at the BusinessLogic class derived from GuiceUsecaseExecutor.
 
 ```java
-public class Logic extends GuiceUsecaseExecutor {
-    public static Logic instance = new Logic();
-
-    public Logic() {
+public class BusinessLogic extends GuiceUsecaseExecutor {
+    public BusinessLogic() {
         super(Guice.createInjector());
         addUsecase(Login.class);
     }
