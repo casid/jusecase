@@ -90,7 +90,7 @@ public class ManualUsecaseExecutorTest {
             exception = e;
         }
 
-        thenExceptionMessageIs("Could not resolve usecase request type for class 'org.jusecase.Usecase'");
+        thenExceptionMessageIs("Could not resolve usecase request type for class 'org.jusecase.Usecase'. Hint: The concrete usecase class is required to resolve the request class.");
     }
 
     private void thenAppendCharactersCanBeExecuted() {
