@@ -10,12 +10,12 @@ JUsecase is available on maven central repository:
 <dependency>
     <groupId>org.jusecase</groupId>
     <artifactId>jusecase</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
 </dependency>
 <dependency>
     <groupId>org.jusecase</groupId>
     <artifactId>jusecase</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
     <type>test-jar</type>
     <scope>test</scope>
 </dependency>
@@ -70,9 +70,7 @@ public Response execute(Request request) {
 
 In a real world usecase you would throw a custom exception that better suits the project you are actually working with. Error handling is completely up to you and your requirements.
 
-I recommend to have a look at the entire login example:
-- [Login.java](https://github.com/casid/jusecase/blob/master/src/test/java/org/jusecase/example/login/Login.java)
-- [LoginTest.java](https://github.com/casid/jusecase/blob/master/src/test/java/org/jusecase/example/login/LoginTest.java)
+For real world examples, I recommend to have a look at the [usecase package in the mazebert-ladder project](https://github.com/casid/mazebert-ladder/tree/master/src/main/java/com/mazebert/usecases).
 
 ## Built in support for dependency injection
 Dependency injection details are completely hidden from your application and managed at one central place.
