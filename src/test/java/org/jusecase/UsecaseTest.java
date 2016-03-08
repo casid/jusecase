@@ -14,7 +14,7 @@ public abstract class UsecaseTest<Request, Response> {
     }
 
     protected void whenRequestIsExecuted() {
-        assertNotNull("Expected request, but received null.", request);
+        assertNotNull("Expected request, but received null. Did you call givenRequest() in your test?", request);
         try {
             response = usecase.execute(request);
         } catch (Throwable e) {
