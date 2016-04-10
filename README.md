@@ -1,6 +1,8 @@
 # JUsecase
 [![Build Status](https://travis-ci.org/casid/jusecase.svg?branch=master)](https://travis-ci.org/casid/jusecase)
 [![Coverage Status](https://coveralls.io/repos/github/casid/jusecase/badge.svg?branch=master)](https://coveralls.io/github/casid/jusecase?branch=master)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://raw.githubusercontent.com/casid/jusecase/master/LICENSE)
+[![Maven Central](https://img.shields.io/maven-central/v/org.jusecase/jusecase.svg)](http://mvnrepository.com/artifact/org.jusecase/jusecase)
 
 Java framework for a usecase centric architecture as proposed by Robert C. Martin and others. Supports Java 1.6+.
 
