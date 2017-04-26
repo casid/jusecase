@@ -12,12 +12,12 @@ JUsecase is available on maven central repository:
 <dependency>
     <groupId>org.jusecase</groupId>
     <artifactId>jusecase</artifactId>
-    <version>0.5.0</version>
+    <version>1.0.0</version>
 </dependency>
 <dependency>
     <groupId>org.jusecase</groupId>
     <artifactId>jusecase</artifactId>
-    <version>0.5.0</version>
+    <version>1.0.0</version>
     <type>test-jar</type>
     <scope>test</scope>
 </dependency>
@@ -50,23 +50,25 @@ public class LoginTest extends UsecaseTest<Request, Response> {
     @Before
     public void setUp() {
         usecase = new Login();
+        request.name = "John";
+        request.password = "password";
     }
     
     @Test
-    public void nullRequest() {
-        givenRequest(null);
+    public void nullName() {
+        request.name = null;
         whenRequestIsExecuted();
-        thenErrorMessageIs("Login request must not be null");
+        thenErrorMessageIs("Name must not be empty");
     }
 ```
 
-Notice that no boilerplate code needs to be written. The given, when, then methods are already there, provided by the abstract UsecaseTest class.
+Notice that no boilerplate code needs to be written. The UsecaseTest class provides you with methods to execute the request as well as some assertions. It also automatically creates the request object for you. The only thing you need to do in the setup is to create the usecase and set some values for your "golden" request.
 
-To make the test green, you would simply write:
+To make the test in the example green, you would simply write:
 
 ```java
 public Response execute(Request request) {
-    throw new RuntimeException("Login request must not be null");
+    throw new RuntimeException("Name must not be empty");
 }
 ```
 
