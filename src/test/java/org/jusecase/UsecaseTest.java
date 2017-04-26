@@ -1,5 +1,8 @@
 package org.jusecase;
 
+import net.jodah.typetools.TypeResolver;
+import org.junit.Before;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -9,12 +12,17 @@ public abstract class UsecaseTest<Request, Response> {
     protected Response response;
     protected Throwable error;
 
-    protected void givenRequest(Request request) {
-        this.request = request;
+    @Before
+    public void createRequest() {
+        try {
+            Class<?> requestClass = TypeResolver.resolveRawArguments(UsecaseTest.class, getClass())[0];
+            request = (Request) requestClass.newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to instantiate request. You need to override createRequest() and do it manually.", e);
+        }
     }
 
     protected void whenRequestIsExecuted() {
-        assertNotNull("Expected request, but received null. Did you call givenRequest() in your test?", request);
         try {
             response = usecase.execute(request);
         } catch (Throwable e) {
