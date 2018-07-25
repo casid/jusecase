@@ -20,7 +20,7 @@ public abstract class UsecaseExecutorTest {
     }
 
     public void thenUsecaseCanBeExecuted(Class<?> requestClass, Class<?> usecaseClass) {
-        Usecase<?, ?> usecase = executor.getUsecase(requestClass);
+        Object usecase = executor.getUsecase(requestClass);
         assertNotNull("No usecase was found for request '" + requestClass.getName() + "'", usecase);
         assertEquals(usecaseClass, usecase.getClass());
     }

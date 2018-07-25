@@ -6,6 +6,7 @@ import org.jusecase.Usecase;
 import org.jusecase.UsecaseExecutorException;
 import org.jusecase.example.trivial.AppendCharacters;
 import org.jusecase.example.trivial.CalculateSum;
+import org.jusecase.example.trivial.SimpleCommand;
 
 import static org.junit.Assert.*;
 
@@ -14,7 +15,7 @@ public class ManualUsecaseExecutorTest {
     private UsecaseExecutorException exception;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         executor = new ManualUsecaseExecutor();
     }
 
@@ -93,9 +94,54 @@ public class ManualUsecaseExecutorTest {
         thenExceptionMessageIs("Could not resolve usecase request type for class 'org.jusecase.Usecase'. Hint: The concrete usecase class is required to resolve the request class.");
     }
 
+    @Test
+    public void void_nullRequest() {
+        try {
+            executor.executeVoid(null);
+        } catch (UsecaseExecutorException e) {
+            exception = e;
+        }
+
+        thenExceptionMessageIs("Request must not be null.");
+    }
+
+    @Test
+    public void void_noUsecaseFound() {
+        try {
+            executor.executeVoid(new SimpleCommand.Request("foo"));
+        } catch (UsecaseExecutorException e) {
+            exception = e;
+        }
+
+        thenExceptionMessageIs("No usecase was found to handle request 'org.jusecase.example.trivial.SimpleCommand$Request'.");
+    }
+
+    @Test
+    public void void_addOneUsecase() {
+        executor.addUsecase(new SimpleCommand());
+        thenSimpleCommandCanBeExecuted();
+    }
+
+    @Test
+    public void void_addOneUsecaseFactory() {
+        executor.addUsecase(new Factory<SimpleCommand>() {
+            public SimpleCommand create() {
+                return new SimpleCommand();
+            }
+        });
+        thenSimpleCommandCanBeExecuted();
+    }
+
     private void thenAppendCharactersCanBeExecuted() {
         AppendCharacters.Request request = new AppendCharacters.Request('A', 5);
         assertEquals("AAAAA", executor.execute(request));
+    }
+
+    private void thenSimpleCommandCanBeExecuted() {
+        SimpleCommand.Request request = new SimpleCommand.Request("foo");
+        executor.executeVoid(request);
+
+        assertEquals("foo", SimpleCommand.messages);
     }
 
     private void thenCalculateSumCanBeExecuted() {

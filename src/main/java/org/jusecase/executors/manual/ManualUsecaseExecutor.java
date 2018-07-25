@@ -1,6 +1,7 @@
 package org.jusecase.executors.manual;
 
 import net.jodah.typetools.TypeResolver;
+import org.jusecase.VoidUsecase;
 import org.jusecase.executors.AbstractUsecaseExecutor;
 import org.jusecase.Usecase;
 
@@ -10,7 +11,11 @@ public class ManualUsecaseExecutor extends AbstractUsecaseExecutor {
         addUsecase(getRequestClass(usecase.getClass()), usecase);
     }
 
-    public <T extends Usecase> void addUsecase(Factory<T> factory) {
+    public void addUsecase(VoidUsecase<?> usecase) {
+        addUsecase(getRequestClass(usecase.getClass()), usecase);
+    }
+
+    public <T> void addUsecase(Factory<T> factory) {
         addUsecase(getRequestClassFromFactory(factory.getClass()), factory);
     }
 

@@ -3,6 +3,7 @@ package org.jusecase.executors;
 import org.jusecase.Usecase;
 import org.jusecase.UsecaseExecutor;
 import org.jusecase.UsecaseExecutorException;
+import org.jusecase.VoidUsecase;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,22 +12,33 @@ public abstract class AbstractUsecaseExecutor implements UsecaseExecutor {
     private Map<Class<?>, Object> usecases = new HashMap<Class<?>, Object>();
     private UsecaseRequestResolver requestResolver = new UsecaseRequestResolver();
 
+    @SuppressWarnings("unchecked")
     public <Request, Response> Response execute(Request request) {
         if (request == null) {
             throw new UsecaseExecutorException("Request must not be null.");
         }
 
-        Usecase<Request, Response> usecase = getUsecase(request.getClass());
+        Usecase<Request, Response> usecase = (Usecase<Request, Response>)getUsecase(request.getClass());
         return usecase.execute(request);
     }
 
     @SuppressWarnings("unchecked")
-    public <Request, Response> Usecase<Request, Response> getUsecase(Class<?> requestClass) {
+    @Override
+    public <Request> void executeVoid(Request request) {
+        if (request == null) {
+            throw new UsecaseExecutorException("Request must not be null.");
+        }
+
+        VoidUsecase<Request> usecase = (VoidUsecase<Request>)getUsecase(request.getClass());
+        usecase.execute(request);
+    }
+
+    public Object getUsecase(Class<?> requestClass) {
         Object usecase = usecases.get(requestClass);
         if (usecase == null) {
             throw new UsecaseExecutorException("No usecase was found to handle request '" + requestClass.getName() + "'.");
         }
-        return (Usecase<Request, Response>)resolveUsecase(usecase);
+        return resolveUsecase(usecase);
     }
 
     protected void addUsecase(Class<?> requestClass, Object usecase) {
