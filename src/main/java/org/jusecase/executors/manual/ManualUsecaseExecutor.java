@@ -1,9 +1,9 @@
 package org.jusecase.executors.manual;
 
-import net.jodah.typetools.TypeResolver;
+import org.jusecase.Usecase;
 import org.jusecase.VoidUsecase;
 import org.jusecase.executors.AbstractUsecaseExecutor;
-import org.jusecase.Usecase;
+import org.jusecase.util.GenericTypeResolver;
 
 public class ManualUsecaseExecutor extends AbstractUsecaseExecutor {
 
@@ -22,14 +22,14 @@ public class ManualUsecaseExecutor extends AbstractUsecaseExecutor {
     @Override
     protected Object resolveUsecase(Object usecase) {
         if (usecase instanceof Factory) {
-            return ((Factory)usecase).create();
+            return ((Factory) usecase).create();
         }
 
         return usecase;
     }
 
     private Class<?> getRequestClassFromFactory(Class<?> factoryClass) {
-        Class<?>[] factoryTypes = TypeResolver.resolveRawArguments(Factory.class, factoryClass);
-        return getRequestClass(factoryTypes[0]);
+        Class<?> factoryType = GenericTypeResolver.resolve(Factory.class, factoryClass, 0);
+        return getRequestClass(factoryType);
     }
 }
