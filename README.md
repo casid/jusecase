@@ -12,12 +12,12 @@ JUsecase is available on maven central repository:
 <dependency>
     <groupId>org.jusecase</groupId>
     <artifactId>jusecase</artifactId>
-    <version>1.0.1</version>
+    <version>1.3.0</version>
 </dependency>
 <dependency>
     <groupId>org.jusecase</groupId>
     <artifactId>jusecase</artifactId>
-    <version>1.0.1</version>
+    <version>1.3.0</version>
     <type>test-jar</type>
     <scope>test</scope>
 </dependency>
