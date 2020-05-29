@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class AbstractUsecaseExecutor implements UsecaseExecutor {
-    private Map<Class<?>, Object> usecases = new HashMap<Class<?>, Object>();
-    private UsecaseRequestResolver requestResolver = new UsecaseRequestResolver();
+    private final Map<Class<?>, Object> usecases = new HashMap<Class<?>, Object>();
+    private final UsecaseRequestResolver requestResolver = new UsecaseRequestResolver();
 
     @SuppressWarnings("unchecked")
     public <Request, Response> Response execute(Request request) {
