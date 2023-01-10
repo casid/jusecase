@@ -16,14 +16,13 @@ JUsecase is available on maven central repository:
 </dependency>
 <dependency>
     <groupId>org.jusecase</groupId>
-    <artifactId>jusecase</artifactId>
-    <version>1.3.0</version>
-    <type>test-jar</type>
+    <artifactId>jusecase-test-junit5</artifactId>
+    <version>1.0.0</version>
     <scope>test</scope>
 </dependency>
 ```
 
-Don't forget to add the test-jar to your project. It provides those parts that make JUsecase truely awesome for TDD.
+Don't forget to add one of jusecase-test-junit4 or jusecase-test-junit5 to your project. It provides those parts that make JUsecase truely awesome for TDD.
 
 ## Easy to test
 Imagine a very common usecase: A user logs in at your system.
@@ -73,8 +72,6 @@ public Response execute(Request request) {
 ```
 
 In a real world usecase you would throw a custom exception that better suits the project you are actually working with. Error handling is completely up to you and your requirements.
-
-For real world examples, I recommend to have a look at the [usecase package in the mazebert-ladder project](https://github.com/casid/mazebert-ladder/tree/master/src/main/java/com/mazebert/usecases).
 
 ## Built in support for dependency injection
 Dependency injection details are completely hidden from your application and managed at one central place.
